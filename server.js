@@ -29,16 +29,19 @@ app.get("/api/hello", function (req, res) {
 });
 
 
-app.get("/api/timestamp/:date_string", function (req, res) {
+app.get("/api/timestamp/:date_string?", function (req, res) {
 
   let {
     date_string
   } = req.params;
   let ret;
   let date;
+  
+  console.log(date_string);
 
-  if (date_string === "") {
+  if (date_string === undefined) {
     date = new Date();
+    console.log(date);
 
   } else {
 

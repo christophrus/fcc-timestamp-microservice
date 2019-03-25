@@ -40,40 +40,34 @@ app.get("/api/timestamp/:date_string?", function (req, res) {
   console.log(date_string);
 
   if (date_string === undefined) {
+    
     date = new Date();
-    console.log(date);
-
   } else {
 
     if (isNaN(Date.parse(date_string))) {
 
       date = new Date(parseInt(date_string));
-
     } else {
 
       date = new Date(date_string);
-
     }
-
-    if (isNaN(date)) {
-
-      ret = {
-        unix: null,
-        utc: "Invalid Date"
-      }
-
-    } else {
-
-      ret = {
-        unix: date.getTime(),
-        utc: date.toUTCString()
-      }
-
-    }
-
-    res.json(ret);
-
   }
+
+  if (isNaN(date)) {
+
+    ret = {
+      error: "invalid date"
+    }
+  } else {
+
+    ret = {
+      unix: date.getTime(),
+      utc: date.toUTCString()
+    }
+  }
+
+  res.json(ret);
+
 
 })
 
